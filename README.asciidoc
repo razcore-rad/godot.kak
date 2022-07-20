@@ -1,3 +1,5 @@
+:kak-lsp-configure-godot: https://github.com/kak-lsp/kak-lsp/wiki/How-to-install-servers#gdscript-godot
+:kak-lsp-website: https://github.com/kak-lsp/kak-lsp/
 :godot-website: https://godotengine.org
 :kakoune-website: https://kakoune.org
 :gettext-website: https://www.gnu.org/software/gettext/
@@ -36,3 +38,7 @@ map -docstring "run Godot scene file" global user g ":godot "
 
 - The Godot game engine.
 - The link:{gettext-website}[gettext] package.
+
+== Notes
+
+For a productive experience install the link:{kak-lsp-website}[Kakoune Language Server Protocol Client] and link:{kak-lsp-configure-godot}[configure it to communicate with Godot].
