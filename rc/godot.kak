@@ -26,6 +26,6 @@ define-command \
 
 complete-command -menu godot shell-script-candidates %{
   case "$kak_token_to_complete" in
-    0) find -type f -name '*.tscn';;
+    0) find -type f -regex '.*.tscn';;
   esac
 }
