@@ -14,6 +14,8 @@ map -docstring "try runing a Godot scene file based on the current buffer file n
 
 ## Example Workflow
 
+https://user-images.githubusercontent.com/1177508/180198888-d77418f7-ed52-49a2-a10b-82e13c786af4.mp4
+
 ## Documentation
 
 For a look at what this plugin has to offer check out [its documentation](godot.kak.asciidoc).
