@@ -20,7 +20,7 @@ define-command \
     ( "$(echo "$kak_opt_godot_executable" | envsubst)" $kak_opt_godot_arguments "$1" > $fifo 2>&1 ) < /dev/null > /dev/null 2>&1 &
     godot_pid=$!
     printf "%s\n" "edit! -fifo $fifo -scroll *godot*
-                   info -title 'godot.kak' 'Running \`$(basename $kak_opt_godot_executable) $kak_opt_godot_arguments ''$1''\`...'
+                   info -title 'godot.kak' 'Running \`$(basename "$kak_opt_godot_executable") $kak_opt_godot_arguments ''$1''\`...'
                    hook buffer BufCloseFifo .* %{ nop %sh{
                      kill $godot_pid > /dev/null 2>&1
                      rm -r $(dirname $fifo)
