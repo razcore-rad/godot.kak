@@ -12,7 +12,10 @@ With this plugin we can run Godot scene files (`*.tscn`) directly from link:{kak
 
 == Usage
 
-This plugin adds the `:godot` command which calls Godot with the selected scene file from the completion list.
+This plugin adds the following commands:
+
+- `:godot` which calls Godot with the selected scene file from the completion list.
+- `:godot-current` which calls the `:godot` command with a scene file derived from the current buffer file name.
 
 == Configuration
 
@@ -24,14 +27,15 @@ set-option global godot_executable "path_to_godot_executable"
 
 For further tweaks we have the `godot_arguments` `str-list` option which is populated with the `--debug` argument by default.
 
-The command we invoke is `godot --debug PATH_TO_SCENE_FILE.tscn`.
+The default command we invoke is `godot --debug PATH_TO_SCENE_FILE.tscn`.
 
 On launching the selected scene file, Godot's output will become accessible in a FIFO buffer called `\*godot*`. Deleting this buffer will result in closing the opened Godot scene file as well.
 
-You can invoke the `:godot` command with a user defined keyboard shortcut for fast access:
+You can invoke the plugin commands with user defined keyboard shortcuts for fast access, for example:
 
 -------------------------------------------------------------
-map -docstring "run Godot scene file" global user g ":godot "
+map -docstring "run a Godot scene file from the completion list" global user g ": godot "
+map -docstring "try runing a Godot scene file based on the current buffer file name" global user G ": godot-current<ret>"
 -------------------------------------------------------------
 
 == Dependencies
