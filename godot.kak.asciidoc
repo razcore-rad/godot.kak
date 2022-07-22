@@ -27,7 +27,20 @@ set-option global godot_executable "path_to_godot_executable"
 
 For further tweaks we have the `godot_arguments` `str-list` option which is populated with the `--debug` argument by default.
 
-The default command we invoke is `godot --debug PATH_TO_SCENE_FILE.tscn`.
+-------------------------------------------------------------
+set-option global godot_arguments "--argument" ["--argument"]
+-------------------------------------------------------------
+
+The default command we invoke is `godot --path PATH_TO_GODOT_PROJECT_INFERED_FROM_PATH_TO_SCENE_FILE --debug PATH_TO_SCENE_FILE`.
+
+The `--path PATH_TO_GODOT_PROJECT_INFERED_FROM_PATH_TO_SCENE_FILE` string is always passed to the Godot executable so we can run scene files even if the current path we're working from is outside the Godot project directory.
+
+For example, we can:
+
+- Say we start with the current working directory at `$HOME`.
+- We open an arbitrary GDScript file location, say `kak $HOME/Projects/godot_awesome_project/awesome.gd`.
+- In Kakoune, we run the `:godot-current` command.
+- We now get to run the `$HOME/Projects/godot_awesome_project/awesome.tscn` scene file (if it exists) even if we didn't start in `$HOME/Projects/godot_awesome_project`.
 
 On launching the selected scene file, Godot's output will become accessible in a FIFO buffer called `\*godot*`. Deleting this buffer will result in closing the opened Godot scene file as well.
 
