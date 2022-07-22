@@ -16,7 +16,7 @@ define-command \
   -params 1 \
   godot %{ evaluate-commands %sh{
     # Find Godot project path
-    godot_scene_path="$1"
+      godot_scene_path="$1"
     godot_project_path=""
     path=$(realpath "$godot_scene_path")
     while [ -z "$godot_path" -a "$path" != '/' ]; do
@@ -26,10 +26,10 @@ define-command \
     done
     
     # If we found it then run Godot otherwise notify the user that we can't run the scene
-    if [ -n "$godot_path" ]
-    then
+    if [ -n "$godot_path" ]; then
       fifo=$(mktemp --directory --tmpdir godot.kak.XXXXXXXX)/fifo
       mkfifo $fifo
+      godot_scene_path=$(realpath --relative-to="$godot_path" "$godot_scene_path")
       ("$(echo "$kak_opt_godot_executable" | envsubst)" --path "$godot_path" $kak_opt_godot_arguments "$godot_scene_path" > $fifo 2>&1) < /dev/null > /dev/null 2>&1 &
       godot_pid=$!
       printf "%s\n" "edit! -fifo $fifo -scroll *godot*
