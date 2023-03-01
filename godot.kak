@@ -13,10 +13,11 @@ declare-option \
 
 define-command \
   -docstring "run a Godot scene file from the completion list" \
-  -params 1 \
+  -params 1.. \
   godot %{ evaluate-commands %sh{
     # Find Godot project path
-      godot_scene_path="$1"
+    godot_scene_path="$1"; shift
+    godot_extra_arguments="$@"
     godot_project_path=""
     path=$(realpath "$godot_scene_path")
     while [ -z "$godot_path" -a "$path" != '/' ]; do
@@ -30,10 +31,10 @@ define-command \
       fifo=$(mktemp --directory --tmpdir godot.kak.XXXXXXXX)/fifo
       mkfifo $fifo
       godot_scene_path=$(realpath --relative-to="$godot_path" "$godot_scene_path")
-      ("$(echo "$kak_opt_godot_executable" | envsubst)" --path "$godot_path" $kak_opt_godot_arguments "$godot_scene_path" > $fifo 2>&1) < /dev/null > /dev/null 2>&1 &
+      ("$(echo "$kak_opt_godot_executable" | envsubst)" --path "$godot_path" $kak_opt_godot_arguments $godot_extra_arguments "$godot_scene_path" > $fifo 2>&1) < /dev/null > /dev/null 2>&1 &
       godot_pid=$!
       printf "%s\n" "edit! -fifo $fifo -scroll *godot*
-                     info -title 'godot.kak' 'Running \`$(basename "$kak_opt_godot_executable") --path ''$godot_path'' $kak_opt_godot_arguments ''$godot_scene_path''\`...'
+                     info -title 'godot.kak' 'Running \`$(basename "$kak_opt_godot_executable") --path ''$godot_path'' $kak_opt_godot_arguments $godot_extra_arguments ''$godot_scene_path''\`...'
                      hook buffer BufCloseFifo .* %{ nop %sh{
                        kill $godot_pid > /dev/null 2>&1
                        rm -r $(dirname $fifo)

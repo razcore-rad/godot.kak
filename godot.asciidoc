@@ -51,6 +51,18 @@ map -docstring "run a Godot scene file from the completion list" global user g "
 map -docstring "try runing a Godot scene file based on the current buffer file name" global user G ": godot-current<ret>"
 -------------------------------------------------------------
 
+For temporary flags we can also pass extra arguments to the `:godot` command after the scene file, e.g.:
+
+-------------------------------------------------------------
+:godot ./dbg.tscn --debug-collisions --debug-navigation
+-------------------------------------------------------------
+
+Which translates to this shell call:
+
+-------------------------------------------------------------
+godot --path PATH_TO_GODOT_PROJECT_INFERED_FROM_PATH_TO_SCENE_FILE --debug --debug-collisions --debug-navigation PATH_TO_SCENE_FILE
+-------------------------------------------------------------
+
 == Dependencies
 
 - The link:{godot-website}[Godot] game engine.
